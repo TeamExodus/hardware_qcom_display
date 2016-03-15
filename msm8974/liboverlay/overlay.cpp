@@ -69,7 +69,7 @@ void Overlay::configDone() {
             //fds
             if(mPipeBook[i].valid()) {
                 char str[32];
-                sprintf(str, "Unset=%s dpy=%d mix=%d; ",
+                snprintf(str, 32, "Unset=%s dpy=%d mix=%d; ",
                         PipeBook::getDestStr((eDest)i),
                         mPipeBook[i].mDisplay, mPipeBook[i].mMixer);
 #if PIPE_DEBUG
