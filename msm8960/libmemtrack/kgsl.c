@@ -47,7 +47,8 @@ int kgsl_memtrack_get_memory(pid_t pid, enum memtrack_type type,
     size_t allocated_records = min(*num_records, ARRAY_SIZE(record_templates));
     FILE *fp;
     char line[1024];
-    char tmp[128];
+    int tmpLen = 128;
+    char tmp[tmpLen];
     bool is_surfaceflinger = false;
     size_t accounted_size = 0;
     size_t unaccounted_size = 0;
@@ -72,7 +73,7 @@ int kgsl_memtrack_get_memory(pid_t pid, enum memtrack_type type,
     memcpy(records, record_templates,
            sizeof(struct memtrack_record) * allocated_records);
 
-    sprintf(tmp, "/d/kgsl/proc/%d/mem", pid);
+    snprintf(tmp, tmpLen,"/d/kgsl/proc/%d/mem", pid);
     fp = fopen(tmp, "r");
     if (fp == NULL) {
         return -errno;

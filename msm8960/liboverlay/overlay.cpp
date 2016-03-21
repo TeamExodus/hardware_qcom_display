@@ -69,8 +69,9 @@ void Overlay::configDone() {
             //Forces UNSET on pipes, flushes rotator memory and session, closes
             //fds
             if(mPipeBook[i].valid()) {
-                char str[32];
-                sprintf(str, "Unset pipe=%s dpy=%d; ",
+                int strLen = 32;
+                char str[strLen];
+                snprintf(str, strLen, "Unset pipe=%s dpy=%d; ",
                         PipeBook::getDestStr((eDest)i), mPipeBook[i].mDisplay);
                 strncat(mDumpStr, str, strlen(str));
             }

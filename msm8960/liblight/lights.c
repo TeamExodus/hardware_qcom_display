@@ -87,8 +87,9 @@ write_int(char const* path, int value)
 
     fd = open(path, O_RDWR);
     if (fd >= 0) {
-        char buffer[20];
-        int bytes = sprintf(buffer, "%d\n", value);
+        int bufLen = 20;
+        char buffer[bufLen];
+        int bytes = snprintf(buffer, bufLen, "%d\n", value);
         int amt = write(fd, buffer, bytes);
         close(fd);
         return amt == -1 ? -errno : 0;
@@ -196,10 +197,10 @@ set_speaker_light_locked(struct light_device_t* dev,
     char freq_file[MAX_PATH_SIZE];
     char pwm_file[MAX_PATH_SIZE];
     char blink_file[MAX_PATH_SIZE];
-    sprintf(lock_update_file, LED_LOCK_UPDATE_FILE, rgb ? "red" : "white");
-    sprintf(freq_file, LED_FREQ_FILE, rgb ? "red" : "white");
-    sprintf(pwm_file, LED_PWM_FILE, rgb ? "red" : "white");
-    sprintf(blink_file, LED_BLINK_FILE, rgb ? "red" : "white");
+    snprintf(lock_update_file, MAX_PATH_SIZE, LED_LOCK_UPDATE_FILE, rgb ? "red" : "white");
+    snprintf(freq_file, MAX_PATH_SIZE, LED_FREQ_FILE, rgb ? "red" : "white");
+    snprintf(pwm_file, MAX_PATH_SIZE, LED_PWM_FILE, rgb ? "red" : "white");
+    snprintf(blink_file, MAX_PATH_SIZE, LED_BLINK_FILE, rgb ? "red" : "white");
 
     write_int(lock_update_file, 1); // for LED On/Off synchronization
 

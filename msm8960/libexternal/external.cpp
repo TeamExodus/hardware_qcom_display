@@ -61,7 +61,7 @@ void ExternalDisplay::updateExtDispDevFbIndex()
     char msmFbTypePath[MAX_FRAME_BUFFER_NAME_SIZE];
 
     for(int j = 1; j < MAX_DISPLAY_DEVICES; j++) {
-        sprintf (msmFbTypePath,"/sys/class/graphics/fb%d/msm_fb_type", j);
+        snprintf (msmFbTypePath, MAX_FRAME_BUFFER_NAME_SIZE,"/sys/class/graphics/fb%d/msm_fb_type", j);
         displayDeviceFP = fopen(msmFbTypePath, "r");
         if(displayDeviceFP){
             fread(fbType, sizeof(char), MAX_FRAME_BUFFER_NAME_SIZE,
@@ -202,9 +202,9 @@ void ExternalDisplay::setActionSafeDimension(int w, int h) {
     Mutex::Autolock lock(mExtDispLock);
     char actionsafeWidth[PROPERTY_VALUE_MAX];
     char actionsafeHeight[PROPERTY_VALUE_MAX];
-    sprintf(actionsafeWidth, "%d", w);
+    snprintf(actionsafeWidth, PROPERTY_VALUE_MAX,"%d", w);
     property_set("hw.actionsafe.width", actionsafeWidth);
-    sprintf(actionsafeHeight, "%d", h);
+    snprintf(actionsafeHeight, PROPERTY_VALUE_MAX,"%d", h);
     property_set("hw.actionsafe.height", actionsafeHeight);
     setExternalDisplay(true, mHdmiFbNum);
 }
@@ -230,8 +230,9 @@ void ExternalDisplay::readCEUnderscanInfo()
     char *ce_info_str = NULL;
     const char token[] = ", \n";
     int ce_info = -1;
-    char sysFsScanInfoFilePath[128];
-    sprintf(sysFsScanInfoFilePath, "/sys/devices/virtual/graphics/fb%d/"
+    int sysLen = 128;
+    char sysFsScanInfoFilePath[sysLen];
+    snprintf(sysFsScanInfoFilePath, sysLen,"/sys/devices/virtual/graphics/fb%d/"
                                    "scan_info", mHdmiFbNum);
 
     memset(scanInfo, 0, sizeof(scanInfo));
@@ -403,8 +404,9 @@ int ExternalDisplay::parseResolution(char* edidStr, int* edidModes)
 
 bool ExternalDisplay::readResolution()
 {
-    char sysFsEDIDFilePath[255];
-    sprintf(sysFsEDIDFilePath , "/sys/devices/virtual/graphics/fb%d/edid_modes",
+    int sysFsLen = 255;
+    char sysFsEDIDFilePath[sysFsLen];
+    snprintf(sysFsEDIDFilePath , sysFsLen,"/sys/devices/virtual/graphics/fb%d/edid_modes",
             mHdmiFbNum);
 
     int hdmiEDIDFile = open(sysFsEDIDFilePath, O_RDONLY, 0);
@@ -662,8 +664,9 @@ int ExternalDisplay::getExtFbNum(int &fbNum) {
 bool ExternalDisplay::writeHPDOption(int userOption) const
 {
     bool ret = true;
-    char sysFsHPDFilePath[255];
-    sprintf(sysFsHPDFilePath ,"/sys/devices/virtual/graphics/fb%d/hpd",
+    int sysLen = 255;
+    char sysFsHPDFilePath[sysLen];
+    snprintf(sysFsHPDFilePath , sysLen,"/sys/devices/virtual/graphics/fb%d/hpd",
                                 mHdmiFbNum);
     int hdmiHPDFile = open(sysFsHPDFilePath,O_RDWR, 0);
     if (hdmiHPDFile < 0) {
