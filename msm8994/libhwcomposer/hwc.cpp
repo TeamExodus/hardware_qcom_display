@@ -17,14 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define ATRACE_TAG (ATRACE_TAG_GRAPHICS | ATRACE_TAG_HAL)
 #include <fcntl.h>
 #include <errno.h>
 
 #include <cutils/log.h>
 #include <cutils/atomic.h>
 #include <EGL/egl.h>
-#include <utils/Trace.h>
 #include <sys/ioctl.h>
 #include <overlay.h>
 #include <overlayRotator.h>
@@ -291,7 +289,6 @@ static void hwc_configure_color_temp(hwc_composer_device_1* dev) {
 
 static int hwc_prepare_primary(hwc_composer_device_1 *dev,
         hwc_display_contents_1_t *list) {
-    ATRACE_CALL();
     hwc_context_t* ctx = (hwc_context_t*)(dev);
     const int dpy = HWC_DISPLAY_PRIMARY;
     bool fbComp = false;
@@ -345,7 +342,6 @@ static int hwc_prepare_primary(hwc_composer_device_1 *dev,
 
 static int hwc_prepare_external(hwc_composer_device_1 *dev,
         hwc_display_contents_1_t *list) {
-    ATRACE_CALL();
     hwc_context_t* ctx = (hwc_context_t*)(dev);
     const int dpy = HWC_DISPLAY_EXTERNAL;
 
@@ -434,7 +430,6 @@ static int hwc_prepare(hwc_composer_device_1 *dev, size_t numDisplays,
 static int hwc_eventControl(struct hwc_composer_device_1* dev, int dpy,
                              int event, int enable)
 {
-    ATRACE_CALL();
     int ret = 0;
     hwc_context_t* ctx = (hwc_context_t*)(dev);
 
@@ -469,7 +464,6 @@ static int hwc_eventControl(struct hwc_composer_device_1* dev, int dpy,
 static int hwc_setPowerMode(struct hwc_composer_device_1* dev, int dpy,
         int mode)
 {
-    ATRACE_CALL();
     hwc_context_t* ctx = (hwc_context_t*)(dev);
     int ret = 0, value = 0;
 
@@ -637,7 +631,6 @@ static int hwc_query(struct hwc_composer_device_1* dev,
 
 
 static int hwc_set_primary(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
-    ATRACE_CALL();
     int ret = 0;
     const int dpy = HWC_DISPLAY_PRIMARY;
     if (LIKELY(list) && ctx->dpyAttr[dpy].isActive
@@ -717,7 +710,6 @@ static int hwc_set_primary(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
 static int hwc_set_external(hwc_context_t *ctx,
                             hwc_display_contents_1_t* list)
 {
-    ATRACE_CALL();
     int ret = 0;
 
     const int dpy = HWC_DISPLAY_EXTERNAL;

@@ -24,6 +24,12 @@ ifeq ($(VSYNC_EVENT_PHASE_OFFSET_NS),)
     LOCAL_CFLAGS += -DDYNAMIC_FPS
 endif
 
+ifneq ($(BONE_STOCK),true)
+  ifeq ($(TARGET_BUILD_VARIANT),userdebug debug)
+    LOCAL_CFLAGS += -D_DISABLE_RUNTIME_DEBUGGING
+  endif
+endif
+
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := hwc.cpp          \
                                  hwc_utils.cpp    \

@@ -21,7 +21,6 @@
 #include <errno.h>
 
 #include <cutils/log.h>
-#include <utils/Trace.h>
 #include <overlayWriteback.h>
 #include "hwc_utils.h"
 #include "hwc_fbupdate.h"
@@ -101,7 +100,6 @@ void HWCVirtualVDS::destroy(hwc_context_t *ctx, size_t /*numDisplays*/,
 
 int HWCVirtualVDS::prepare(hwc_composer_device_1 *dev,
         hwc_display_contents_1_t *list) {
-    ATRACE_CALL();
     //XXX: Fix when framework support is added
     hwc_context_t* ctx = (hwc_context_t*)(dev);
     const int dpy = HWC_DISPLAY_VIRTUAL;
@@ -159,7 +157,6 @@ int HWCVirtualVDS::prepare(hwc_composer_device_1 *dev,
 }
 
 int HWCVirtualVDS::set(hwc_context_t *ctx, hwc_display_contents_1_t *list) {
-    ATRACE_CALL();
     int ret = 0;
     const int dpy = HWC_DISPLAY_VIRTUAL;
 
@@ -289,7 +286,6 @@ void HWCVirtualVDS::resume(hwc_context_t* ctx, int dpy) {
 
 int HWCVirtualV4L2::prepare(hwc_composer_device_1 *dev,
         hwc_display_contents_1_t *list) {
-    ATRACE_CALL();
 
     hwc_context_t* ctx = (hwc_context_t*)(dev);
     const int dpy = HWC_DISPLAY_VIRTUAL;
@@ -324,7 +320,6 @@ int HWCVirtualV4L2::prepare(hwc_composer_device_1 *dev,
 }
 
 int HWCVirtualV4L2::set(hwc_context_t *ctx, hwc_display_contents_1_t *list) {
-    ATRACE_CALL();
     int ret = 0;
 
     const int dpy = HWC_DISPLAY_VIRTUAL;

@@ -28,6 +28,12 @@ ifeq ($(GET_FRAMEBUFFER_FORMAT_FROM_HWC),true)
 endif
 endif #TARGET_USES_QCOM_BSP
 
+ifneq ($(BONE_STOCK),true)
+  ifeq ($(TARGET_BUILD_VARIANT),userdebug debug)
+    LOCAL_CFLAGS += -D_DISABLE_RUNTIME_DEBUGGING
+  endif
+endif
+
 #Enable Dynamic FPS if PHASE_OFFSET is not set
 ifeq ($(VSYNC_EVENT_PHASE_OFFSET_NS),)
     LOCAL_CFLAGS += -DDYNAMIC_FPS

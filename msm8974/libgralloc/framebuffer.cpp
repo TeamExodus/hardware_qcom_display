@@ -66,12 +66,13 @@ static int fb_setSwapInterval(struct framebuffer_device_t* dev,
 {
     //XXX: Get the value here and implement along with
     //single vsync in HWC
+#ifdef _DISABLE_RUNTIME_DEBUGGING
     char pval[PROPERTY_VALUE_MAX];
     property_get("debug.egl.swapinterval", pval, "-1");
     int property_interval = atoi(pval);
     if (property_interval >= 0)
         interval = property_interval;
-
+#endif
     private_module_t* m = reinterpret_cast<private_module_t*>(
         dev->common.module);
     if (interval < dev->minSwapInterval || interval > dev->maxSwapInterval)

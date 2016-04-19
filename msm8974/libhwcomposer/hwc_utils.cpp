@@ -17,14 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define ATRACE_TAG (ATRACE_TAG_GRAPHICS | ATRACE_TAG_HAL)
 #define HWC_UTILS_DEBUG 0
 #include <math.h>
 #include <sys/ioctl.h>
 #include <binder/IServiceManager.h>
 #include <EGL/egl.h>
 #include <cutils/properties.h>
-#include <utils/Trace.h>
 #include <gralloc_priv.h>
 #include <overlay.h>
 #include <overlayRotator.h>
@@ -602,7 +600,6 @@ void closeAcquireFds(hwc_display_contents_1_t* list, int dpy) {
 
 int hwc_sync(hwc_context_t *ctx, hwc_display_contents_1_t* list, int dpy,
         int fd) {
-    ATRACE_CALL();
     int ret = 0;
     int acquireFd[MAX_NUM_APP_LAYERS];
     int count = 0;
@@ -616,13 +613,13 @@ int hwc_sync(hwc_context_t *ctx, hwc_display_contents_1_t* list, int dpy,
     data.acq_fen_fd = acquireFd;
     data.rel_fen_fd = &releaseFd;
     data.retire_fen_fd = &retireFd;
-
+#ifdef _DISABLE_RUNTIME_DEBUGGING
     char property[PROPERTY_VALUE_MAX];
     if(property_get("debug.egl.swapinterval", property, "1") > 0) {
         if(atoi(property) == 0)
             swapzero = true;
     }
-
+#endif
     for(uint32_t i = 0; i < ctx->mLayerRotMap[dpy]->getCount(); i++) {
         int rotFd = ctx->mRotMgr->getRotDevFd();
         int rotReleaseFd = -1;

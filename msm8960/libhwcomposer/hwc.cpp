@@ -17,14 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define ATRACE_TAG (ATRACE_TAG_GRAPHICS | ATRACE_TAG_HAL)
 #include <fcntl.h>
 #include <errno.h>
 
 #include <cutils/log.h>
 #include <cutils/atomic.h>
 #include <EGL/egl.h>
-#include <utils/Trace.h>
 #include <sys/ioctl.h>
 #include <overlay.h>
 #include <overlayRotator.h>
@@ -284,7 +282,6 @@ static int hwc_eventControl(struct hwc_composer_device_1* dev, int dpy,
 
 static int hwc_blank(struct hwc_composer_device_1* dev, int dpy, int blank)
 {
-    ATRACE_CALL();
     hwc_context_t* ctx = (hwc_context_t*)(dev);
 
     if (!validDisplay(dpy)) {
@@ -369,7 +366,6 @@ static int hwc_query(struct hwc_composer_device_1* dev,
 
 
 static int hwc_set_primary(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
-    ATRACE_CALL();
     int ret = 0;
     const int dpy = HWC_DISPLAY_PRIMARY;
 
@@ -415,7 +411,6 @@ static int hwc_set_primary(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
 static int hwc_set_external(hwc_context_t *ctx,
                             hwc_display_contents_1_t* list, int dpy)
 {
-    ATRACE_CALL();
     int ret = 0;
     Locker::Autolock _l(ctx->mExtSetLock);
 

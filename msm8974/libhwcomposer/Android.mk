@@ -13,6 +13,13 @@ LOCAL_SHARED_LIBRARIES        := $(common_libs) libEGL liboverlay \
                                  libdl libmemalloc libqservice libsync \
                                  libbinder libmedia
 LOCAL_CFLAGS                  := $(common_flags) -DLOG_TAG=\"qdhwcomposer\"
+
+ifneq ($(BONE_STOCK),true)
+  ifeq ($(TARGET_BUILD_VARIANT),userdebug debug)
+    LOCAL_CFLAGS += -D_DISABLE_RUNTIME_DEBUGGING
+  endif
+endif
+
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := hwc.cpp          \
                                  hwc_utils.cpp    \
