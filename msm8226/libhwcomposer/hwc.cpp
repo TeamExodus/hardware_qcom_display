@@ -777,7 +777,7 @@ int hwc_getDisplayConfigs(struct hwc_composer_device_1* dev, int disp,
     int ret = 0;
     hwc_context_t* ctx = (hwc_context_t*)(dev);
 
-    if (!validDisplay(dpy)) {
+    if (!validDisplay(disp)) {
         return -EINVAL;
     }
     disp = getDpyforExternalDisplay(ctx, disp);
@@ -811,7 +811,7 @@ int hwc_getDisplayAttributes(struct hwc_composer_device_1* dev, int disp,
 
     hwc_context_t* ctx = (hwc_context_t*)(dev);
 
-    if (!validDisplay(dpy)) {
+    if (!validDisplay(disp)) {
         return -EINVAL;
     }
     disp = getDpyforExternalDisplay(ctx, disp);
