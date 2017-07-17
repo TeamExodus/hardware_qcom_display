@@ -1,4 +1,4 @@
-ifeq ($(call my-dir),$(call project-path-for,qcom-display))
+ifeq ($(TARGET_BOARD_PLATFORM),msm8996)
 
 sdm-libs := sdm/libs
 display-hals := include libqservice libqdutils $(sdm-libs)/utils $(sdm-libs)/core
